@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF4F8"/>
+      <stop offset="1" stop-color="#FFD3E4"/>
+    </linearGradient>
+    <radialGradient id="dough" cx="0.45" cy="0.35" r="0.75">
+      <stop offset="0" stop-color="#F6C17F"/>
+      <stop offset="0.7" stop-color="#E49A52"/>
+      <stop offset="1" stop-color="#C9783A"/>
+    </radialGradient>
+    <linearGradient id="glaze" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FF9CC6"/>
+      <stop offset="1" stop-color="#F0609C"/>
+    </linearGradient>
+    <clipPath id="card"><rect width="400" height="400" rx="44"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#card)">
+    <rect width="400" height="400" fill="url(#bg)"/>
+    <!-- лучи -->
+    <g fill="#FFFFFF" opacity="0.6">
+      <path d="M200 200 L-40 70 L-40 140 Z"/>
+      <path d="M200 200 L40 -40 L110 -40 Z"/>
+      <path d="M200 200 L260 -40 L330 -40 Z"/>
+      <path d="M200 200 L440 40 L440 110 Z"/>
+      <path d="M200 200 L440 230 L440 290 Z"/>
+      <path d="M200 200 L-40 250 L-40 310 Z"/>
+    </g>
+
+    <!-- тень на полу -->
+    <ellipse cx="200" cy="356" rx="120" ry="14" fill="#E07AA5" opacity="0.25"/>
+
+    <!-- ножки -->
+    <path d="M168 318 L162 346" stroke="#5A3220" stroke-width="7" stroke-linecap="round"/>
+    <path d="M232 318 L238 346" stroke="#5A3220" stroke-width="7" stroke-linecap="round"/>
+    <ellipse cx="154" cy="350" rx="16" ry="8" fill="#5A3220"/>
+    <ellipse cx="246" cy="350" rx="16" ry="8" fill="#5A3220"/>
+
+    <!-- левая рука (вниз) -->
+    <path d="M66 236 Q40 252 36 282" stroke="#5A3220" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <circle cx="35" cy="288" r="11" fill="#FFFFFF" stroke="#5A3220" stroke-width="3"/>
+    <!-- правая рука (машет) -->
+    <path d="M334 222 Q362 196 364 160" stroke="#5A3220" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <circle cx="364" cy="152" r="12" fill="#FFFFFF" stroke="#5A3220" stroke-width="3"/>
+    <path d="M378 132 Q388 140 386 152 M384 120 Q398 132 396 150" stroke="#E0609A" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.8"/>
+
+    <!-- тесто -->
+    <ellipse cx="200" cy="228" rx="150" ry="112" fill="url(#dough)"/>
+    <ellipse cx="200" cy="246" rx="146" ry="92" fill="#C9783A" opacity="0.25"/>
+
+    <!-- глазурь с потёками -->
+    <path d="M58 214
+             C58 150 124 112 200 112 C276 112 342 150 342 214
+             C342 236 334 252 322 262
+             C318 276 306 280 302 266 C296 252 288 262 282 272
+             C278 290 262 292 260 276 C258 264 248 270 240 278
+             C232 286 218 284 214 274 C208 262 196 266 190 276
+             C184 294 166 296 162 280 C160 270 150 268 142 272
+             C132 278 122 276 120 266 C118 258 108 260 100 262
+             C80 262 58 244 58 214 Z" fill="url(#glaze)"/>
+    <!-- блик на глазури -->
+    <path d="M92 182 C102 150 138 130 176 126" stroke="#FFFFFF" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.55"/>
+
+    <!-- дырка -->
+    <ellipse cx="200" cy="166" rx="48" ry="23" fill="#B86A2E"/>
+    <ellipse cx="200" cy="162" rx="40" ry="15" fill="#FFE6F0"/>
+
+    <!-- посыпка -->
+    <g stroke-width="7" stroke-linecap="round">
+      <path d="M110 186 L122 180" stroke="#FFFFFF"/>
+      <path d="M134 150 L140 162" stroke="#7FD1FF"/>
+      <path d="M262 140 L274 146" stroke="#FFE066"/>
+      <path d="M292 176 L300 188" stroke="#7FD1FF"/>
+      <path d="M254 196 L266 194" stroke="#FFFFFF"/>
+      <path d="M150 130 L162 128" stroke="#FFE066"/>
+      <path d="M232 128 L240 138" stroke="#9BE38E"/>
+      <path d="M100 222 L104 234" stroke="#9BE38E"/>
+      <path d="M306 214 L316 222" stroke="#FFE066"/>
+      <path d="M180 120 L188 126" stroke="#FFFFFF"/>
+      <path d="M140 200 L150 206" stroke="#FFE066"/>
+      <path d="M318 196 L326 190" stroke="#FFFFFF"/>
+    </g>
+
+    <!-- лицо -->
+    <ellipse cx="168" cy="222" rx="13" ry="16" fill="#3B2216"/>
+    <ellipse cx="232" cy="222" rx="13" ry="16" fill="#3B2216"/>
+    <circle cx="172" cy="216" r="5" fill="#FFFFFF"/>
+    <circle cx="236" cy="216" r="5" fill="#FFFFFF"/>
+    <circle cx="164" cy="228" r="2.2" fill="#FFFFFF"/>
+    <circle cx="228" cy="228" r="2.2" fill="#FFFFFF"/>
+    <ellipse cx="142" cy="244" rx="14" ry="8" fill="#FF4F8B" opacity="0.45"/>
+    <ellipse cx="258" cy="244" rx="14" ry="8" fill="#FF4F8B" opacity="0.45"/>
+    <path d="M184 244 Q200 266 216 244 Q200 252 184 244 Z" fill="#3B2216"/>
+    <path d="M193 253 Q200 260 207 253 Q200 256 193 253 Z" fill="#FF7FA8"/>
+  </g>
+</svg>
