@@ -39,7 +39,7 @@ jobs:
   build:
     needs: unpack
     if: needs.unpack.outputs.ready == 'true'
-    runs-on: macos-15
+    runs-on: macos-15-intel
     env:
       BUNDLE_ID: app.pon4ik.client
       DEVELOPMENT_TEAM: ""
