@@ -1,0 +1,88 @@
+name: iOS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ios
+  cancel-in-progress: true
+
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    outputs:
+      ready: ${{ steps.check.outputs.ready }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Распаковать загруженные исходники
+        run: |
+          for f in incoming/src.tar.gz src.tar.gz src.tar.xz incoming/src.tar.xz; do
+            [ -f "$f" ] || continue
+            tar xf "$f"
+            git rm -q "$f"
+            CHANGED=1
+          done
+          if [ -n "${CHANGED:-}" ]; then
+            git add -A
+            git -c user.name="pon4ik-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -q -m "Распаковка исходников"
+            git push -q
+          fi
+      - id: check
+        run: echo "ready=$([ -f ios/project.yml ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: unpack
+    if: needs.unpack.outputs.ready == 'true'
+    runs-on: macos-15
+    env:
+      BUNDLE_ID: app.pon4ik.client
+      DEVELOPMENT_TEAM: ""
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: ios/Core/go.mod
+          cache-dependency-path: ios/Core/go.sum
+
+      - name: Ядро Xray для iPhone (gomobile)
+        working-directory: ios/Core
+        run: |
+          MOBILE=$(go list -m -f '{{.Version}}' golang.org/x/mobile)
+          go install golang.org/x/mobile/cmd/gomobile@$MOBILE golang.org/x/mobile/cmd/gobind@$MOBILE
+          gomobile init
+          gomobile bind -target ios -iosversion 15.0 -trimpath -ldflags="-s -w -buildid=" \
+            -o ../Frameworks/Pon4ikCore.xcframework .
+
+      - name: Инструменты
+        run: brew install xcodegen librsvg
+
+      - name: Картинки и проект
+        working-directory: ios
+        run: |
+          ./scripts/make-assets.sh
+          xcodegen
+
+      - name: Сборка без подписи (проверка кода)
+        working-directory: ios
+        run: |
+          xcodebuild -project Pon4ik.xcodeproj -scheme Pon4ik -configuration Release \
+            -sdk iphoneos -destination 'generic/platform=iOS' CODE_SIGNING_ALLOWED=NO build > build.log 2>&1 || true
+          grep -E "error:|BUILD (SUCCEEDED|FAILED)" build.log | head -60
+          grep -q "BUILD SUCCEEDED" build.log
+
+      - name: Журнал сборки
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: ios/build.log
+          if-no-files-found: ignore
